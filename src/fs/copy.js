@@ -1,11 +1,8 @@
 import {cp} from 'fs/promises';
-import {fileURLToPath} from 'url';
-import {dirname} from 'path';
-import path from 'path';
+import {getPath} from "./utils/get-path.js";
 
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const pathToCopiedObj = path.join(__dirname, 'files');
+const pathToCopiedObj = getPath(import.meta.url, 'files');
 const pathToCopyObj = pathToCopiedObj + '_copy';
 
 const copy = async () => {
