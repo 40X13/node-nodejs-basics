@@ -1,6 +1,5 @@
 import {createGzip} from 'zlib';
-import {pipeline} from 'stream';
-import {promisify} from 'util';
+import {pipeline} from 'stream/promises';
 import {
     createReadStream,
     createWriteStream,
@@ -9,18 +8,13 @@ import {
 import {getPath} from "../utils/get-path.js";
 
 
-const patToSource=createReadStream(getPath(import.meta.url, 'files', 'fileToCompress.txt'));
-const patToDestination=createWriteStream(getPath(import.meta.url, 'files', 'archive.gz'));
+const readStream = createReadStream(getPath(import.meta.url, 'files', 'fileToCompress.txt'));
+const writeStream = createWriteStream(getPath(import.meta.url, 'files', 'archive.gz'));
 
 const compress = async () => {
-    try {
-        const gzip = createGzip();
-        const pipe = promisify(pipeline);
-        await pipe(patToSource, gzip, patToDestination);
-    }catch (err){
-        throw err;
-    }
-
+    await pipeline(readStream, createGzip(), writeStream);
+    // await readStream.pipe(createGzip()).pipe(writeStream)
+    console.log('completed successfully');
 };
 
 await compress();
