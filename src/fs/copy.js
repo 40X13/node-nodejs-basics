@@ -1,5 +1,5 @@
 import {cp} from 'fs/promises';
-import {getPath} from "./utils/get-path.js";
+import {getPath} from "../utils/get-path.js";
 
 
 const pathToCopiedObj = getPath(import.meta.url, 'files');

@@ -1,5 +1,5 @@
 import {unlink} from 'fs/promises';
-import {getPath} from "./utils/get-path.js";
+import {getPath} from "../utils/get-path.js";
 
 
 const path = getPath(import.meta.url, 'files', "fileToRemove.txt");
